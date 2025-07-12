@@ -3,7 +3,7 @@ import http from 'http';
 import cors from 'cors';
 import { Server } from 'socket.io';
 import connectDB from './config/db.js';
-import reservasRoutes from './routes/reservas.js';
+import reservasRoutes from './Routes/reservas.js';
 import dotenv from 'dotenv';
 import colors from 'colors';
 
