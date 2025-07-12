@@ -1,7 +1,7 @@
 import express from 'express';
 import Reserva from '../models/Reserva.js';
 
-const router = express.Router();
+const reservasRoutes = express.Router();
 
 router.post('/', async (req, res) => {
   try {
@@ -27,4 +27,4 @@ router.get('/', async (req, res) => {
   }
 });
 
-export default router;
+export default reservasRoutes;
