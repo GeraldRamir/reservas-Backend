@@ -1,16 +1,15 @@
 import express from 'express';
 import Reserva from '../models/Reserva.js';
 
-const reservasRoutes = express.Router();
+const router = express.Router(); // Cambié a "router"
 
 router.post('/', async (req, res) => {
   try {
     const nueva = new Reserva(req.body);
     await nueva.save();
 
-    // Emitir evento a los clientes conectados
     const io = req.app.get('io');
-    io.emit('nueva-reserva', nueva); // Puedes emitir a todos
+    io.emit('nueva-reserva', nueva);
 
     res.status(201).json({ message: 'Reserva enviada' });
   } catch (error) {
@@ -27,4 +26,4 @@ router.get('/', async (req, res) => {
   }
 });
 
-export default reservasRoutes;
+export default router;
