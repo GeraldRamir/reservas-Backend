@@ -3,7 +3,7 @@ import http from 'http';
 import cors from 'cors';
 import { Server } from 'socket.io';
 import connectDB from './config/db.js';
-import reservasRoutes from './Routes/reservas.js';
+import reservasRoutes from './routes/reservas.js';
 import dotenv from 'dotenv';
 import colors from 'colors';
 
@@ -14,18 +14,18 @@ const server = http.createServer(app); // <- Para socket.io
 
 const io = new Server(server, {
   cors: { 
-    origin: process.env.FRONTEND_URL || '*',  // Usar variable de entorno
-    methods: ['GET', 'POST'],
+    origin: process.env.FRONTEND_URL || '*',
+    methods: ['GET', 'POST', 'DELETE'],  // Agrega DELETE aquí
     credentials: true,
   },
 });
 
-// Configurar CORS en Express para las peticiones HTTP
 app.use(cors({
   origin: process.env.FRONTEND_URL || '*',
-  methods: ['GET', 'POST'],
+  methods: ['GET', 'POST', 'DELETE'],   // Y aquí también
   credentials: true,
 }));
+
 
 app.use(express.json());
 

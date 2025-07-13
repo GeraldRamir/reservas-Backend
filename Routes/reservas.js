@@ -25,5 +25,24 @@ router.get('/', async (req, res) => {
     res.status(500).json({ message: 'Error al obtener reservas' });
   }
 });
+router.delete('/:id', async (req, res) => {
+  try {
+    const id = req.params.id;
+    const reservaEliminada = await Reserva.findByIdAndDelete(id);
+
+    if (!reservaEliminada) {
+      return res.status(404).json({ message: 'Reserva no encontrada' });
+    }
+
+    const io = req.app.get('io');
+    io.emit('reserva-eliminada', reservaEliminada);
+
+    res.json({ message: 'Reserva eliminada correctamente', reserva: reservaEliminada });
+  } catch (error) {
+    res.status(500).json({ message: 'Error al eliminar reserva' });
+  }
+});
+
+
 
 export default router;
